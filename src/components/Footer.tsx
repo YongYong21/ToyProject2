@@ -36,7 +36,7 @@ const FooterWrapper = styled.div`
   background-color: #e9e9e9;
   display: grid;
   grid-template-columns: 1fr auto;
-  padding: 1em 5em;
+  padding: 1em 13em;
 `;
 const LeftWrapper = styled.div`
   display: grid;
@@ -55,7 +55,7 @@ const LeftWrapper = styled.div`
   }
 `;
 const RightWrapper = styled.div`
-  padding: 2em;
+  padding: 2em 0;
   font-size: 0.8em;
   color: #666666;
   line-height: 1.4em;
