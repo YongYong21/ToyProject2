@@ -1,6 +1,8 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import { useDarkMode } from "../hooks/useDarkMode";
+import { useContext } from "react";
+import { ThemeContext } from "../App";
+import { lightTheme } from "../style/theme";
 
 interface MenuListItem {
   key: number;
@@ -9,11 +11,7 @@ interface MenuListItem {
 }
 
 const Header = () => {
-  const { isDarkMode, toggleMode } = useDarkMode();
-  const handleToggle = () => {
-    toggleMode();
-    window.localStorage.setItem("isDarkMode", isDarkMode.toString());
-  };
+  const { theme, toggleTheme } = useContext(ThemeContext);
 
   const menuList: MenuListItem[] = [
     {
@@ -44,18 +42,16 @@ const Header = () => {
       </SubMenu>
       <UserBar>
         <UserInfo>
-          <StyledLink to={"#"}>로그인</StyledLink> |{" "}
-          <StyledLink to={"#"}>회원가입</StyledLink>
+          <StyledLink to={"login"}>로그인</StyledLink> |{" "}
+          <StyledLink to={"signup"}>회원가입</StyledLink>
         </UserInfo>
-        <ThemeToggle isDarkMode={isDarkMode}>
-          <input
-            type="checkbox"
-            id="toggleBtn"
-            onChange={handleToggle}
-            checked={isDarkMode}
-          />
-          <label htmlFor="toggleBtn"></label>
-        </ThemeToggle>{" "}
+        <ToggleBtn onClick={toggleTheme}>
+          {theme === lightTheme ? (
+            <img src="/src/assets/images/sun.svg" alt="light mode" />
+          ) : (
+            <img src="/src/assets/images/moon.svg" alt="dark mode" />
+          )}
+        </ToggleBtn>
       </UserBar>
     </NavBar>
   );
@@ -101,52 +97,18 @@ const UserBar = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
-  gap: 2em;
+  gap: 1em;
   font-size: 0.9em;
 `;
-const ThemeToggle = styled.label<{ isDarkMode: boolean }>`
-  display: inline-block;
-  position: relative;
-  width: 3.1rem;
-  height: 1.8rem;
-  background-color: #ccc;
-  border-radius: 5em;
+const UserInfo = styled.div``;
+const ToggleBtn = styled.button`
+  padding: 0;
+  background-color: transparent;
+  appearance: none;
+  border: none;
   cursor: pointer;
-
-  input[type="checkbox"] {
-    display: none;
-  }
-
-  label {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: absolute;
-    top: 0.1em;
-    left: 0.1em;
-    width: 1.8em;
-    height: 1.8em;
-    border-radius: 50%;
-    background-color: white;
-    box-shadow: 0.1em 0.1em 0.3em rgba(0, 0, 0, 0.4);
-    transition: transform 0.2s ease;
-  }
-
-  input[type="checkbox"]:checked + label {
-    transform: translateX(1.4em);
-    background-color: ${(props) =>
-      props.isDarkMode === false ? "#ffffff" : "#3a3a3a"};
-  }
-
-  label::before {
-    content: "🌞";
-    font-size: 1.7em;
-    position: absolute;
-    top: 0.1em;
-  }
-
-  input[type="checkbox"]:checked + label::before {
-    content: "🌛";
+  img {
+    width: 1.5em;
+    height: 1.5em;
   }
 `;
-const UserInfo = styled.div``;
