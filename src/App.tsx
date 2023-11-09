@@ -4,8 +4,6 @@ import { GlobalStyle } from "./style/GlobalStyle";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import Layout from "./components/Layout";
 import MainContents from "./pages/mainContents";
-import Profile from "./pages/profile";
-import Chat from "./pages/chat";
 import PageNotFound from "./components/PageNotFound";
 import { darkTheme, lightTheme } from "./style/theme";
 import { useEffect, useState } from "react";
@@ -18,12 +16,25 @@ const router = createBrowserRouter([
     children: [
       { path: "", element: <MainContents /> },
       {
-        path: "profile",
+        path: "profiles",
         element: <Profile />
       },
       {
+        path: "profiles/:userid",
+        element: <ProfilePage />
+      },
+      { path: "profiles/:userid/edit", element: <ProfileEdit /> },
+      {
         path: "chat",
         element: <Chat />
+      },
+      {
+        path: "login",
+        element: <Login />
+      },
+      {
+        path: "signup",
+        element: <SignUp />
       }
     ]
   },
