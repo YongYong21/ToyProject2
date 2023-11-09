@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import { useState } from "react";
+import { useDarkMode } from "../hooks/useDarkMode";
 
 interface MenuListItem {
   key: number;
@@ -9,12 +9,12 @@ interface MenuListItem {
 }
 
 const Header = () => {
-  const [isDarkMode, setIsDarkMode] = useState(false);
-
-  const toggleMode = () => {
-    setIsDarkMode((prevMode) => !prevMode);
-    console.log(isDarkMode);
+  const { isDarkMode, toggleMode } = useDarkMode();
+  const handleToggle = () => {
+    toggleMode();
+    window.localStorage.setItem("isDarkMode", isDarkMode.toString());
   };
+
   const menuList: MenuListItem[] = [
     {
       key: 1,
@@ -48,7 +48,12 @@ const Header = () => {
           <StyledLink to={"#"}>회원가입</StyledLink>
         </UserInfo>
         <ThemeToggle isDarkMode={isDarkMode}>
-          <input type="checkbox" id="toggleBtn" onChange={toggleMode} />
+          <input
+            type="checkbox"
+            id="toggleBtn"
+            onChange={handleToggle}
+            checked={isDarkMode}
+          />
           <label htmlFor="toggleBtn"></label>
         </ThemeToggle>{" "}
       </UserBar>
@@ -128,14 +133,16 @@ const ThemeToggle = styled.label<{ isDarkMode: boolean }>`
   }
 
   input[type="checkbox"]:checked + label {
-    transform: translateX(20px);
+    transform: translateX(1.4em);
     background-color: ${(props) =>
       props.isDarkMode === false ? "#ffffff" : "#3a3a3a"};
   }
 
   label::before {
     content: "🌞";
-    font-size: 1.5em;
+    font-size: 1.7em;
+    position: absolute;
+    top: 0.1em;
   }
 
   input[type="checkbox"]:checked + label::before {

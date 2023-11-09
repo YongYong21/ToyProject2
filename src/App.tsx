@@ -7,7 +7,9 @@ import MainContents from "./pages/mainContents";
 import Profile from "./pages/profile";
 import Chat from "./pages/chat";
 import PageNotFound from "./components/PageNotFound";
-import { theme } from "./style/theme";
+import { darkTheme, lightTheme } from "./style/theme";
+import { useEffect, useState } from "react";
+import { DarkModeProvider } from "./hooks/useDarkMode";
 
 const router = createBrowserRouter([
   {
@@ -32,17 +34,25 @@ const router = createBrowserRouter([
 ]);
 
 function App() {
-  // const [isDarkMode, setIsDarkMode] = useState(false);
-  // const toggleMode = () => setIsDarkMode((prevMode) => !prevMode);
-  // const theme = isDarkMode ? darkTheme : lightTheme;
+  const [isDarkMode, setisDarkMode] = useState(false);
 
+  useEffect(() => {
+    const storedMode = window.localStorage.getItem("isDarkMode");
+    if (storedMode) {
+      setisDarkMode(storedMode === "true");
+    }
+  }, []);
+
+  const theme = isDarkMode ? darkTheme : lightTheme;
   return (
-    <Wrapper>
-      <ThemeProvider theme={theme}>
-        <GlobalStyle />
-        <RouterProvider router={router} />
-      </ThemeProvider>
-    </Wrapper>
+    <DarkModeProvider>
+      <Wrapper>
+        <ThemeProvider theme={theme}>
+          <GlobalStyle />
+          <RouterProvider router={router} />
+        </ThemeProvider>
+      </Wrapper>
+    </DarkModeProvider>
   );
 }
 
