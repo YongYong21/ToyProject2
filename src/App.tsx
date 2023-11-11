@@ -7,12 +7,13 @@ import { Theme, darkTheme, lightTheme } from "./style/theme";
 import { createContext } from "react";
 import { useDarkMode } from "./hooks/useDarkMode";
 import Profile from "./components/Profile/Profile";
-import MainContents from "./Pages/MainContents";
-import ProfilePage from "./Pages/Profile/ProfilePage";
-import ProfileEditPage from "./Pages/Profile/ProfileEditPage";
-import Chat from "./Pages/Chat";
-import Login from "./Pages/Login/Login";
-import SignUp from "./Pages/SignUp/SignUp";
+import MainContents from "./pages/MainContents";
+import ProfilePage from "./pages/Profile/ProfilePage";
+import ProfileEditPage from "./pages/Profile/ProfileEditPage";
+import Chat from "./pages/Chat";
+import Login from "./pages/Login/Login";
+import SignUp from "./pages/SignUp/SignUp";
+import { AuthProvider } from "./hooks/useAuth";
 
 interface ContextProps {
   theme: Theme;
