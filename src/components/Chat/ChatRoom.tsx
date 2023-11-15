@@ -34,12 +34,7 @@ export interface Message {
   createdAt: Date;
 }
 
-function ChatRoom({
-  roomId,
-  roomName,
-  selectedUsers,
-  setChatRoom
-}: ChatRoomProps) {
+function ChatRoom({ roomId, setChatRoom }: ChatRoomProps) {
   const [text, setText] = useState("");
   const [messages, setMessages] = useState<Message[]>([]);
   const { accessToken } = useContext(AuthContext);
