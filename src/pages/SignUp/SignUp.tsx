@@ -21,7 +21,8 @@ const SignUpContainer = styled.div`
   gap: 16px;
   border: 1px solid #ccc;
   padding: 50px 30px;
-  margin-top: 20vh;
+  margin-top: 10vh;
+  margin-bottom: 10vh;
   box-shadow: rgba(0, 0, 0, 0.15) 1px 1px 2px;
   background-color: ${({ theme }) => theme.bgColor};
   color: ${({ theme }) => theme.textColor};
