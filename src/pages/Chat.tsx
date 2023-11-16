@@ -185,8 +185,6 @@ const ChatWrapper = styled.div`
   width: 100%;
   margin: 0 auto;
   background-color: ${({ theme }) => (theme === darkTheme ? "black" : "white")};
-
-  margin-top: 160px;
 `;
 
 const ChatInner = styled.div`
