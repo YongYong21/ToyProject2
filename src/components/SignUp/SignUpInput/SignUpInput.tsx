@@ -145,7 +145,7 @@ interface FormData {
   name: string;
   password: string;
   confirmPw: string;
-  profile: string;
+  picture: string;
   [key: string]: string;
 }
 
